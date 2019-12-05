@@ -24,7 +24,9 @@ public:
 	int operator+ () const;
 	void operator~ ();
 	friend std::ostream& operator<<(std::ostream&, ListaObavestenja&);
+	//Popravi za const
 	Obavestenje* operator[] (int) const;
+	Obavestenje* operator[] (int);
 
 
 private:

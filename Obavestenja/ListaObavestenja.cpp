@@ -51,7 +51,30 @@ void ListaObavestenja::operator~()
 	last = nullptr;
 }
 
+
+//Popravi za const
 Obavestenje* ListaObavestenja::operator[](int index) const
+{
+	Elem* pom = head;
+	int ind = 0;
+	while (pom)
+	{
+		if (ind == index)
+		{
+			if (!pom->ob->isRead())
+				return pom->ob;
+			else
+				break;
+		}
+		pom = pom->next;
+		ind++;
+	}
+	return nullptr;
+}
+
+
+
+Obavestenje* ListaObavestenja::operator[](int index)
 {
 	Elem* pom = head;
 	int ind = 0;

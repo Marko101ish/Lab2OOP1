@@ -6,6 +6,9 @@
 int main()
 {
 	Korisnik k1("Miroslav");
+
+	Korisnik k4("Miroslav");
+
 	Objava o1(&k1, "METALLICA!!!");
 	Objava o2(&k1, "MEGADETH!!!");
 	Objava o3(&k1, "SLAYER!!!");
@@ -23,7 +26,16 @@ int main()
 	lstObav();
 	std::cout << std::endl << "---------------------" << std::endl;
 	std::cout << lstObav;
+	const ListaObavestenja lstObavC;
 
+
+	Objava o4(&k4, "IDEMOOO");
+
+	//lstObavC += o4;
+	
+	//std::cout << lstObavC[0];
+
+	Korisnik k2("Marko");
 
 	system("pause");
 	return 0;
