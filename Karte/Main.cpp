@@ -25,14 +25,24 @@ int main()
 	(*i1.GetAktiv()).PushEnd(c3).PushEnd(c1).PushEnd(c2);
 	(*i2.GetAktiv()).PushEnd(c4).PushEnd(c6).PushEnd(c5);
 
-	std::cout << *i1.GetAktiv()<<std::endl;
-	std::cout << *i2.GetAktiv();
+	//std::cout << *i1.GetAktiv()<<std::endl;
+	//std::cout << *i2.GetAktiv()<<std::endl;
 
-	(*(i1.GetAktiv()))[1]->Upotrebi(&i1, &i2);
+	//(*(i1.GetAktiv()))[1]->Upotrebi(&i1, &i2);
 
-	std::cout << *i2.GetAktiv();
+	//std::cout << std::endl << *i2.GetAktiv();
 
-	std::cout << *i2.GetGroblje();
+	//std::cout << *i2.GetGroblje();
+
+	//(*(i1.GetAktiv()))[1]->Upotrebi(&i1, &i2);
+
+	//std::cout <<std::endl<< *i2.GetAktiv()<<std::endl;
+
+	//std::cout << *i2.GetGroblje();
+
+	(*i2.GetAktiv())(2);
+
+	std::cout << std::endl << *i2.GetAktiv() << std::endl;
 
 
 

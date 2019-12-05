@@ -40,13 +40,17 @@ public:
 	Zbirka& operator = (const Zbirka&)=delete;
 	Zbirka& operator = (Zbirka&&)=delete;
 	Karta* operator [] (int index) const;
+
+	//Brise element sa zadatim indeksom
 	void operator () (int index);
+	//Brise element sa nasumicnim indeksom
 	void operator ~ ();
 	
 #pragma endregion
 
 	Karta* GetByID(int getid) const;
 	void DeleteByID(int getid);
+
 	friend std::ostream& operator<< (std::ostream& os, Zbirka& zb);
 
 	int GetTempNum() const;

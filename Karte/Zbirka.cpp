@@ -4,8 +4,7 @@
 
 Zbirka& Zbirka::PushEnd(Karta& novaKarta)
 {
-	Elem *novi;
-	novi = new Elem();
+	Elem *novi = new Elem();
 	novi->karta = &novaKarta;
 	if (!head) 
 		head = novi;
@@ -58,6 +57,8 @@ void Zbirka::DeleteByID(int getid)
 			}
 			else
 			{
+				if (pom == last)
+					last = tek;
 				tek->next = pom->next;
 			}
 			pom->next = nullptr;
@@ -137,6 +138,8 @@ void Zbirka::operator()(int index)
 			}
 			else
 			{
+				if (pom == last)
+					last = tek;
 				tek->next = pom->next;
 			}
 			pom->next = nullptr;
