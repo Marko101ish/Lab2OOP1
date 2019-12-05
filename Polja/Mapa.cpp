@@ -29,17 +29,7 @@ Mapa::~Mapa()
 	Brisi();
 }
 
-Mapa & Mapa::operator=(const Mapa &m1)
-{
-	Kopiraj(m1);
-	return *this;
-}
 
-Mapa & Mapa::operator=(Mapa && m1)
-{
-	Premesti(m1);
-	return *this;
-}
 
 #pragma region Zamene
 
@@ -185,11 +175,29 @@ std::ostream & operator<<(std::ostream &os, const Mapa& m)
 		for (int j = 0; j<m.cols_; j++)
 		{
 			pom = m.map_[i][j];
-			os << *pom << '\t';
+			os << *pom;
+
+			//Formatiranje ispisa sa dodatim tabulatorom za sumu
+			//if (m.map_[i][j]->Oznaka() != 'S')
+			//	std::cout << '\t';
+
+			std::cout << '\t';
 		}
 	os << std::endl;
 	}
 	return os;
+}
+
+Mapa& Mapa::operator=(const Mapa& m1)
+{
+	Kopiraj(m1);
+	return *this;
+}
+
+Mapa& Mapa::operator=(Mapa&& m1)
+{
+	Premesti(m1);
+	return *this;
 }
 
 #pragma endregion

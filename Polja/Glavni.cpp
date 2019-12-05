@@ -19,6 +19,8 @@ int main()
 	Mapa m2(1,1);
 
 	m2 = Mapa(2, 3);
+	m2.Zameni(0, 1, KAMENI);
+	m2.Zameni(0, 0, 25);
 	std::cout << m2;
 
 
