@@ -9,3 +9,5 @@ std::ostream & operator<<(std::ostream & os, const Karta & k)
 	k.pisi(os);
 	return os;
 }
+
+

@@ -24,8 +24,15 @@ void Zbirka::brisi()
 		head = head->next;
 		pom->next = nullptr;
 		delete pom;
-
 	}
+}
+
+void Zbirka::premesti(Zbirka &zb)
+{
+	head = zb.head;
+	last = zb.last;
+	zb.head = nullptr;
+	zb.last = nullptr;
 }
 
 
@@ -43,7 +50,7 @@ Karta * Zbirka::GetByID(int getid) const
 	return nullptr;
 }
 
-void Zbirka::DeleteByID(int getid)
+Karta* Zbirka::DeleteByID(int getid)
 {
 	Elem *pom = head;
 	Elem *tek = nullptr;
@@ -62,11 +69,12 @@ void Zbirka::DeleteByID(int getid)
 				tek->next = pom->next;
 			}
 			pom->next = nullptr;
-			return;
+			return pom->karta;
 		}
 		tek = pom;
 		pom = pom->next;
 	}
+	return nullptr;
 }
 
 int Zbirka::GetTempNum() const
@@ -123,7 +131,7 @@ Karta* Zbirka::operator[](int index) const
 	return nullptr;
 }
 
-void Zbirka::operator()(int index)
+Karta* Zbirka::operator()(int index)
 {
 	Elem *pom = head;
 	Elem *tek = nullptr;
@@ -143,12 +151,13 @@ void Zbirka::operator()(int index)
 				tek->next = pom->next;
 			}
 			pom->next = nullptr;
-			return;
+			return pom->karta;
 		}
 		i++;
 		tek = pom;
 		pom = pom->next;
 	}
+	return nullptr;
 }
 
 void Zbirka::operator~()
@@ -170,4 +179,3 @@ std::ostream & operator<<(std::ostream & os, Zbirka & zb)
 }
 
 #pragma endregion
-

@@ -1,19 +1,26 @@
 #ifndef IGRAC_H
 #define IGRAC_H
 
-#include "Zbirka.h"
+#include<iostream>
+
+class Karta;
+class Zbirka;
 
 class Igrac
 {
 public:
-	Igrac(std::string ime, int lifeEn, int magEn):ime_(ime), lifeEn_(lifeEn), magEn_(magEn) 
-	{
-		spil_ = new Zbirka();
-		aktiv_ = new Zbirka();
-		groblje_ = new Zbirka();
-		ruka_ = new Zbirka();
 
-	}
+#pragma region Konstruktori, destruktor i dodela
+
+	Igrac(std::string ime, int lifeEn, int magEn, Zbirka &spil);
+	Igrac(Igrac&& ig) { Premesti(ig); }
+	Igrac(const Igrac&) = delete;
+	~Igrac();
+	Igrac& operator = (const Igrac&) = delete;
+	Igrac& operator = (Igrac&& ig) { Premesti(ig); return *this; }
+
+#pragma endregion
+
 	
 #pragma region Geteri
 
@@ -31,22 +38,22 @@ public:
 		return magEn_;
 	}
 
-	Zbirka* GetSpil() const
+	Zbirka& GetSpil() const
 	{
-		return spil_;
+		return *spil_;
 	}
 
-	Zbirka* GetRuka() const
+	Zbirka& GetRuka() const
 	{
-		return ruka_;
+		return *ruka_;
 	}
-	Zbirka* GetAktiv() const
+	Zbirka& GetAktiv() const
 	{
-		return aktiv_;
+		return *aktiv_;
 	}
-	Zbirka* GetGroblje() const
+	Zbirka& GetGroblje() const
 	{
-		return groblje_;
+		return *groblje_;
 	}
 #pragma endregion
 
@@ -60,15 +67,19 @@ public:
 		magEn_ += pts;
 	}
 
-//Funkcija koja prebacuje zadati broj karata iz spila u ruku
-	//void Izvuci(int brojKarata);
-//Prebacuje kartu iz ruke u aktivne
-	//void Aktviraj(...);
+	//Prebacuje kartu iz ruke na teren
+	void Aktiviraj(int);
+
+	//Karta koja izvlaci karte iz spila, trenutno samo u ruku premesta spil
+	void Izvuci();
+
 
 private:
 	std::string ime_;
 	int lifeEn_, magEn_;
 	Zbirka *spil_, *ruka_, *aktiv_, *groblje_;
+
+	void Premesti(Igrac &);
 };
 
 #endif

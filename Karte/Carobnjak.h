@@ -5,6 +5,7 @@
 #include "Igrac.h"
 #include<iostream>
 
+
 class Carobnjak:public Borac
 {
 public:

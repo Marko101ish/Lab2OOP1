@@ -15,11 +15,12 @@ public:
 
 	Zbirka& PushEnd(Karta&);
 
-#pragma region Konstruktori&destruktor
+#pragma region Konstruktori, destruktor i dodela
 
 	Zbirka(const Zbirka&)=delete;
-	Zbirka(Zbirka&&)=delete;
-
+	Zbirka(Zbirka&& zb) { premesti(zb); }
+	Zbirka& operator = (const Zbirka&) = delete;
+	Zbirka& operator = (Zbirka&& zb) { premesti(zb); return *this;  }
 
 	Zbirka()
 	{
@@ -36,20 +37,17 @@ public:
 #pragma endregion
 
 #pragma region Operatori
-
-	Zbirka& operator = (const Zbirka&)=delete;
-	Zbirka& operator = (Zbirka&&)=delete;
 	Karta* operator [] (int index) const;
 
 	//Brise element sa zadatim indeksom
-	void operator () (int index);
+	Karta* operator () (int index);
 	//Brise element sa nasumicnim indeksom
 	void operator ~ ();
 	
 #pragma endregion
 
 	Karta* GetByID(int getid) const;
-	void DeleteByID(int getid);
+	Karta* DeleteByID(int getid);
 
 	friend std::ostream& operator<< (std::ostream& os, Zbirka& zb);
 
@@ -59,6 +57,7 @@ public:
 private:
 
 	void brisi();
+	void premesti(Zbirka&);
 	Elem *head, *last;
 };
 

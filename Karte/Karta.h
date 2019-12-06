@@ -9,16 +9,20 @@ class Igrac;
 
 enum Kategorija {CAROLIJA, BORAC};
 
+// Karta ne sme da se kopira
 
 class Karta
 {
 public:
 
-#pragma region Konstruktori&destruktor
+#pragma region Konstruktori, destruktor i dodela
 
+	//Karta ne sme da se kopira
 	Karta(std::string ime, int magEn): ime_(ime), magEn_(magEn) {}
 	Karta(const Karta&) = delete;
 	Karta(Karta&&) = delete;
+	Karta& operator= (const Karta&) = delete;
+	Karta& operator= (Karta&&) = delete;
 
 
 #pragma endregion
@@ -41,18 +45,17 @@ public:
 	{
 		return ime_;
 	}
-
+	//Ne moze da se instancira, jer je GETKATEGORIJA cisto virtuelna
 	virtual Kategorija GetKategorija() const =0;
 
 #pragma endregion
 
-
+	//Ne moze da se instancira, jer je UPOTREBI cisto virtuelna
 	virtual void Upotrebi(Igrac*, Igrac*) = 0;
 
 #pragma region Operatori
 
-	Karta& operator= (const Karta&) = delete;
-	Karta& operator= (Karta&&) = delete;
+
 	friend std::ostream& operator << (std::ostream &os, const Karta& k);
 
 #pragma endregion
