@@ -1,17 +1,25 @@
-#include<iostream>
 #include "Korisnik.h"
 #include "Obavestenje.h"
 #include "Objava.h"
 #include "ListaObavestenja.h"
+#include<string>
+#include<iostream>
+
+//Lista:
+//+= dodaje na pocetak, () neprocitana
+//+ broj neprocitanih, ! oznaci procitanim
+//~brise sva obavestenja iz liste
+//[id] dohvata neprocitano
 int main()
 {
 	Korisnik k1("Miroslav");
 
-	Korisnik k4("Miroslav");
+	Korisnik k4("Nikola");
 
 	Objava o1(&k1, "METALLICA!!!");
 	Objava o2(&k1, "MEGADETH!!!");
 	Objava o3(&k1, "SLAYER!!!");
+
 	ListaObavestenja lstObav;
 
 	lstObav += o1;
@@ -26,16 +34,11 @@ int main()
 	lstObav();
 	std::cout << std::endl << "---------------------" << std::endl;
 	std::cout << lstObav;
-	const ListaObavestenja lstObavC;
 
 
-	Objava o4(&k4, "IDEMOOO");
-
-	//lstObavC += o4;
-	
-	//std::cout << lstObavC[0];
 
 	Korisnik k2("Marko");
+	k1.Posalji(k4, o2);
 
 	system("pause");
 	return 0;

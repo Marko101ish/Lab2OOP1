@@ -3,6 +3,7 @@
 
 #include<ctime>
 #include<iostream>
+#include<string>
 
 class Korisnik;
 
@@ -11,6 +12,8 @@ class Obavestenje
 public:
 	Obavestenje(Korisnik* korisnik);
 	
+
+#pragma region Geteri
 	int GetID() const
 	{
 		return id_;
@@ -23,6 +26,8 @@ public:
 	{
 		return read_;
 	}
+#pragma endregion
+
 	void Read()
 	{
 		if (read_ == false)
@@ -31,15 +36,16 @@ public:
 		}
 	}
 
-	friend std::ostream& operator << (std::ostream&, const Obavestenje &);
+	friend std::ostream& operator << (std::ostream &os, const Obavestenje& ob);
 
 protected:
 	//Spec je ostavljen kao apstraktna metoda, ne moze da se napravi objekat tipa Obavestenje!
 	virtual void Spec(std::ostream&) const =0;
+
 private:
 	static int ID;
 	int id_ = ID++;
-	//time_t vreme_ = time_t();
+	time_t vreme_ = time(NULL);
 	bool read_ = false;
 	Korisnik* korisnik_;
 };

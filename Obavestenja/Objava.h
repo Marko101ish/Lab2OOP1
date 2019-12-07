@@ -1,13 +1,14 @@
 #ifndef OBJAVA_H
 #define OBJAVA_H
 #include "Obavestenje.h"
+#include<string>
 class Korisnik;
 
 class Objava : public Obavestenje
 {
 public:
 	Objava(Korisnik* korisnik, std::string tekst) : tekst_(tekst), Obavestenje(korisnik) {}
-	void Spec(std::ostream&) const override;
+	void Spec(std::ostream&)const override;
 private:
 	std::string tekst_;
 };

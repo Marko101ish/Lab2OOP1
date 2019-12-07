@@ -1,20 +1,21 @@
 #include "ListaObavestenja.h"
 #include "Obavestenje.h"
 
-ListaObavestenja& ListaObavestenja::Dodaj(Obavestenje& obav)
+
+//Destrutkor
+ListaObavestenja::~ListaObavestenja()
 {
-	Elem* novi = new Elem;
-	novi->ob = &obav;
-	if (!head)
+	while (head)
 	{
-		last = novi;
+		Elem *old = head;
+		head = head->next;
+		delete old;
 	}
-	novi->next = head;
-	head = novi;
-	return *this;
+	last = nullptr;
 }
 
 
+#pragma region Operatori
 
 void ListaObavestenja::operator!()
 {
@@ -51,8 +52,18 @@ void ListaObavestenja::operator~()
 	last = nullptr;
 }
 
+void ListaObavestenja::operator()() const
+{
+	Ispis(std::cout, false);
+}
 
-//Popravi za const
+std::ostream& operator<<(std::ostream&os, const ListaObavestenja&lst)
+{
+	lst.Ispis(os, true);
+	return os;
+}
+
+
 Obavestenje* ListaObavestenja::operator[](int index) const
 {
 	Elem* pom = head;
@@ -72,8 +83,6 @@ Obavestenje* ListaObavestenja::operator[](int index) const
 	return nullptr;
 }
 
-
-
 Obavestenje* ListaObavestenja::operator[](int index)
 {
 	Elem* pom = head;
@@ -92,6 +101,8 @@ Obavestenje* ListaObavestenja::operator[](int index)
 	}
 	return nullptr;
 }
+
+#pragma endregion
 
 void ListaObavestenja::Brisi()
 {
@@ -115,13 +126,15 @@ void ListaObavestenja::Ispis(std::ostream& os, bool pickRead) const
 	}
 }
 
-void ListaObavestenja::operator()() const
+ListaObavestenja& ListaObavestenja::Dodaj(Obavestenje& obav)
 {
-	Ispis(std::cout, false);
-}
-
-std::ostream& operator<<(std::ostream&os, ListaObavestenja&lst)
-{
-	lst.Ispis(os, true);
-	return os;
+	Elem* novi = new Elem;
+	novi->ob = &obav;
+	if (!head)
+	{
+		last = novi;
+	}
+	novi->next = head;
+	head = novi;
+	return *this;
 }

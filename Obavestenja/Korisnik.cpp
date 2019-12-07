@@ -3,17 +3,26 @@
 #include "Obavestenje.h"
 #include "Objava.h"
 
+#include<iostream>
+
+
 Korisnik::Korisnik(std::string ime)
 {
 	ime_ = ime;
 	inbox_ = new ListaObavestenja();
 }
 
-//Korisnik salje obavestenje drugom korisniku sa zadatim tekstom
-void Korisnik::Posalji(Korisnik& k2, std::string tekst) const
+Korisnik::~Korisnik()
 {
-	Obavestenje* novo = new Objava(&k2, tekst);
-	k2.Primi(*novo);
+	delete inbox_;
+	inbox_ = nullptr;
+	ime_ = "";
+}
+
+//Korisnik salje obavestenje drugom korisniku
+void Korisnik::Posalji(Korisnik& k2, Obavestenje &ob) const
+{
+	k2.Primi(ob);
 }
 
 void Korisnik::Primi(Obavestenje& ob)
@@ -21,9 +30,9 @@ void Korisnik::Primi(Obavestenje& ob)
 	*inbox_ += ob;
 }
 
-std::ostream& operator<<(std::ostream os, Korisnik& kor)
+std::ostream & operator<<(std::ostream&os, const Korisnik &kor)
 {
-	os << kor.GetIme();
+	os << kor.ime_;
 	kor.Spec(os);
 	return os;
 }

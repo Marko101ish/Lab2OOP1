@@ -9,24 +9,37 @@ class Obavestenje;
 class Korisnik
 {
 public:
+#pragma region Konstruktori, destruktor i dodela
 
 	Korisnik(std::string ime);
+	Korisnik(const Korisnik&) = delete;
+	Korisnik(Korisnik&&) = delete;
+	~Korisnik();
+	Korisnik& operator=(const Korisnik&) = delete;
+	Korisnik& operator=(Korisnik&&) = delete;
+
+#pragma endregion
+
+#pragma region Geteri
 
 	std::string GetIme() const
 	{
 		return ime_;
 	}
+	const ListaObavestenja& GetInbox() const
+	{
+		return *inbox_;
+	}
 
-	void Posalji(Korisnik&, std::string) const;
+#pragma endregion
+
+
+	void Posalji(Korisnik&, Obavestenje&) const;
 	void Primi(Obavestenje&);
 
-	Korisnik(const Korisnik&) = delete;
-	Korisnik(Korisnik&&) = delete;
+	friend std::ostream& operator << (std::ostream&, const Korisnik&);
 
-	Korisnik& operator=(const Korisnik&) = delete;
-	Korisnik& operator=(Korisnik&&) = delete;
-
-	friend std::ostream& operator << (std::ostream, Korisnik&);
+	//Dodati specifican ispis
 	void Spec(std::ostream&) const {}
 private:
 	std::string ime_;
