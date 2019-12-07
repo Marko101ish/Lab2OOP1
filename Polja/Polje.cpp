@@ -11,6 +11,8 @@ Polje::Polje(int neproh)
 		neproh_ = neproh;
 }
 
+#pragma region Operatori
+
 Polje Polje::operator++(int)
 {
 	Polje tmp = *this;
@@ -33,3 +35,5 @@ std::ostream & operator<<(std::ostream & os, const Polje & p)
 	p.Pisi(os);
 	return os;
 }
+
+#pragma endregion

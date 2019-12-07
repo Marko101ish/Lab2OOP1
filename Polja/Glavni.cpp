@@ -19,11 +19,11 @@ int main()
 	Mapa m2(1,1);
 
 	m2 = Mapa(2, 3);
-	m2.Zameni(0, 1, KAMENI);
-	m2.Zameni(0, 0, 25);
-	std::cout << m2;
+	std::cout << m2<<std::endl;
+	m1.Zameni(1, 0, ZEMLJANI);
+	m1.Zameni(0, 1, 234);
 
-
+	std::cout <<std::endl<< m1 << std:: endl;
 
 	system("pause");
 	return 0;

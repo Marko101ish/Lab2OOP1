@@ -3,6 +3,9 @@
 #include "PoljePut.h"
 #include "PoljeSuma.h"
 
+
+#pragma region Konstruktori, destruktor i dodela
+
 Mapa::Mapa(const int rows, const int cols)
 {
 	Inicijalizuj(rows, cols);
@@ -27,6 +30,28 @@ Mapa::Mapa(Mapa && m1)
 Mapa::~Mapa()
 {
 	Brisi();
+}
+
+Mapa & Mapa::operator=(const Mapa &m1)
+{
+	Kopiraj(m1);
+	return *this;
+}
+
+Mapa & Mapa::operator=(Mapa && m1)
+{
+	Premesti(m1);
+	return *this;
+}
+
+#pragma endregion
+
+//Proverava da li su zadati indeksi u opsegu
+bool Mapa::proveri(int x, int y) const
+{
+	if (x < rows_ && x >= 0 && y >= 0 && y < cols_)
+		return true;
+	return false;
 }
 
 
@@ -57,12 +82,7 @@ void Mapa::Zameni(int x, int y, unsigned int gust)
 
 #pragma endregion
 
-bool Mapa::proveri(int x, int y) const
-{
-	if (x < rows_ && x >= 0 && y >= 0 && y < cols_)
-		return true;
-	return false;
-}
+
 
 #pragma region Funkcije za kop, prem i brisanje
 
@@ -79,9 +99,6 @@ void Mapa::Kopiraj(const Mapa &m1)
 {
 	PoljeSuma *pom1;
 	PoljePut *pom2;
-
-
-
 	Inicijalizuj(m1.rows_, m1.cols_);
 	for (int i = 0; i < m1.rows_; i++)
 		for (int j = 0; j < m1.cols_; j++)
@@ -175,29 +192,14 @@ std::ostream & operator<<(std::ostream &os, const Mapa& m)
 		for (int j = 0; j<m.cols_; j++)
 		{
 			pom = m.map_[i][j];
-			os << *pom;
-
-			//Formatiranje ispisa sa dodatim tabulatorom za sumu
-			//if (m.map_[i][j]->Oznaka() != 'S')
-			//	std::cout << '\t';
-
-			std::cout << '\t';
+			//Dva tabulatora zbog boljeg poravnjanja
+			os << *pom << '\t';
+			if (!(pom->Oznaka() == 'S'))
+				os << '\t';
 		}
 	os << std::endl;
 	}
 	return os;
-}
-
-Mapa& Mapa::operator=(const Mapa& m1)
-{
-	Kopiraj(m1);
-	return *this;
-}
-
-Mapa& Mapa::operator=(Mapa&& m1)
-{
-	Premesti(m1);
-	return *this;
 }
 
 #pragma endregion
