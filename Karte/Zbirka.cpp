@@ -2,19 +2,10 @@
 #include "Borac.h"
 #include<cstdlib>
 
-Zbirka& Zbirka::PushEnd(Karta& novaKarta)
-{
-	Elem *novi = new Elem();
-	novi->karta = &novaKarta;
-	if (!head) 
-		head = novi;
-	else
-		last->next = novi;
-	last = novi;
-	return *this;
-}
 
+#pragma region Brisanje i premestanje
 
+//Brise objekte potpuno
 void Zbirka::brisi()
 {
 	Elem *pom;
@@ -27,6 +18,7 @@ void Zbirka::brisi()
 	}
 }
 
+//Samo premesta pokazivace, ne dira karte jer ne smeju da se kopiraju
 void Zbirka::premesti(Zbirka &zb)
 {
 	head = zb.head;
@@ -34,9 +26,23 @@ void Zbirka::premesti(Zbirka &zb)
 	zb.head = nullptr;
 	zb.last = nullptr;
 }
+#pragma endregion
 
 
+#pragma region Lista, bez operacija sa operatorima
 
+
+Zbirka& Zbirka::PushEnd(Karta& novaKarta)
+{
+	Elem *novi = new Elem();
+	novi->karta = &novaKarta;
+	if (!head)
+		head = novi;
+	else
+		last->next = novi;
+	last = novi;
+	return *this;
+}
 
 Karta * Zbirka::GetByID(int getid) const
 {
@@ -76,7 +82,7 @@ Karta* Zbirka::DeleteByID(int getid)
 	}
 	return nullptr;
 }
-
+//Dohvata broj karata u zbirci
 int Zbirka::GetTempNum() const
 {
 	Elem *pom = head;
@@ -89,6 +95,7 @@ int Zbirka::GetTempNum() const
 	return s;
 }
 
+//Dohvata borca sa najmanjom snagom
 int Zbirka::GetLowest()
 {
 	int i = 0;
@@ -114,10 +121,26 @@ int Zbirka::GetLowest()
 	return minind;
 }
 
+#pragma endregion
+
 
 #pragma region Operatori
 
 Karta* Zbirka::operator[](int index) const
+{
+	Elem *pom = head;
+	int i = 0;
+	while (pom)
+	{
+		if (i == index)
+			return pom->karta;
+		i++;
+		pom = pom->next;
+	}
+	return nullptr;
+}
+
+Karta * Zbirka::operator[](int index)
 {
 	Elem *pom = head;
 	int i = 0;

@@ -58,21 +58,17 @@ public:
 #pragma endregion
 
 
-	void CngLife(const int pts)
-	{
-		lifeEn_ += pts;
-	}
-	void CngEn(const int pts)
-	{
-		magEn_ += pts;
-	}
+	void CngLife(const int pts);
+	void CngEn(const int pts);
 
+
+#pragma region Prebacivanje karata
 	//Prebacuje kartu iz ruke na teren
 	void Aktiviraj(int);
-
 	//Karta koja izvlaci karte iz spila, trenutno samo u ruku premesta spil
 	void Izvuci();
 
+#pragma endregion
 
 private:
 	std::string ime_;
@@ -80,6 +76,7 @@ private:
 	Zbirka *spil_, *ruka_, *aktiv_, *groblje_;
 
 	void Premesti(Igrac &);
+	void GameOver();
 };
 
 #endif

@@ -2,6 +2,7 @@
 
 int Karta::ID = 1;
 
+#pragma region Operatori
 std::ostream & operator<<(std::ostream & os, const Karta & k)
 {
 
@@ -10,4 +11,4 @@ std::ostream & operator<<(std::ostream & os, const Karta & k)
 	return os;
 }
 
-
+#pragma endregion

@@ -1,19 +1,15 @@
 #ifndef ZBIRKA_H
 #define ZBIRKA_H
-
+#include "List.h"
 #include "Karta.h"
 
-struct Elem
-{
-	Karta *karta;
-	Elem *next;
-};
+
 
 class Zbirka
 {
 public:
 
-	Zbirka& PushEnd(Karta&);
+
 
 #pragma region Konstruktori, destruktor i dodela
 
@@ -38,6 +34,8 @@ public:
 
 #pragma region Operatori
 	Karta* operator [] (int index) const;
+	Karta* operator [] (int index);
+	friend std::ostream& operator<< (std::ostream& os, Zbirka& zb);
 
 	//Brise element sa zadatim indeksom
 	Karta* operator () (int index);
@@ -46,14 +44,16 @@ public:
 	
 #pragma endregion
 
+
+#pragma region Operacije sa listom bez operatora
+	Zbirka& PushEnd(Karta&);
 	Karta* GetByID(int getid) const;
 	Karta* DeleteByID(int getid);
-
-	friend std::ostream& operator<< (std::ostream& os, Zbirka& zb);
-
 	int GetTempNum() const;
-
 	int GetLowest(); //dohvata indeks borca sa najmanjom snagom
+#pragma endregion
+
+
 private:
 
 	void brisi();

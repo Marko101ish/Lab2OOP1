@@ -10,6 +10,7 @@ class Carobnjak:public Borac
 {
 public:
 	Carobnjak(std::string ime, int magEn, int snaga) : Borac(ime, magEn, snaga) {}
+	
 	void pisi(std::ostream&) const override;
 
 

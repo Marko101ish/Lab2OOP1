@@ -3,9 +3,15 @@
 #include "Karta.h"
 #include<iostream>
 
+#pragma region Konstruktor, destruktor i f-ja za premestanje
+
 Igrac::Igrac(std::string ime, int lifeEn, int magEn, Zbirka &spil)
 {
 	ime_ = ime;
+	if (lifeEn <= 0)
+		lifeEn = 1;
+	if (magEn <= 0)
+		magEn = 1;
 	lifeEn_ = lifeEn;
 	magEn_ = magEn;
 	spil_ = &spil;
@@ -26,6 +32,24 @@ Igrac::~Igrac()
 	ime_ = "";
 }
 
+void Igrac::Premesti(Igrac &ig)
+{
+	ime_ = ig.ime_;
+	magEn_ = ig.magEn_;
+	lifeEn_ = ig.lifeEn_;
+	spil_ = ig.spil_;
+	ruka_ = ig.ruka_;
+	aktiv_ = ig.aktiv_;
+	groblje_ = ig.groblje_;
+
+	ig.groblje_ = ig.aktiv_ = ig.ruka_ = ig.spil_ = nullptr;
+}
+
+#pragma endregion
+
+
+
+#pragma region Prebacivanje karata (aktivacija, izvlacenje,...)
 void Igrac::Aktiviraj(int indRuka)
 {
 	if (indRuka < ruka_->GetTempNum())
@@ -43,16 +67,28 @@ void Igrac::Izvuci()
 {
 	ruka_ = spil_;
 }
+#pragma endregion
 
-void Igrac::Premesti(Igrac &ig)
+
+
+void Igrac::CngLife(const int pts)
 {
-	ime_ = ig.ime_;
-	magEn_ = ig.magEn_;
-	lifeEn_ = ig.lifeEn_;
-	spil_ = ig.spil_;
-	ruka_ = ig.ruka_;
-	aktiv_ = ig.aktiv_;
-	groblje_ = ig.groblje_;
-
-	ig.groblje_ = ig.aktiv_ = ig.ruka_ = ig.spil_ = nullptr;
+	int newLifePTS = lifeEn_ + pts;
+	if (newLifePTS <= 0)
+		GameOver();
+	lifeEn_ = newLifePTS;
 }
+
+void Igrac::CngEn(const int pts)
+{
+	magEn_ += pts;
+}
+
+
+void Igrac::GameOver()
+{
+	std::cout << "Igrac: " << ime_ << " je porazen, igra je zavrsena!\n";
+	system("pause");
+	exit(0);
+}
+

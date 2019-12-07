@@ -50,8 +50,9 @@ public:
 
 #pragma endregion
 
-	//Ne moze da se instancira, jer je UPOTREBI cisto virtuelna
+	//Ne moze da se instancira, jer su UPOTREBI i PISI cisto virtuelna
 	virtual void Upotrebi(Igrac*, Igrac*) = 0;
+	virtual void pisi(std::ostream&) const = 0;
 
 #pragma region Operatori
 
@@ -59,13 +60,17 @@ public:
 	friend std::ostream& operator << (std::ostream &os, const Karta& k);
 
 #pragma endregion
-	virtual void pisi(std::ostream&) const = 0;
+
+
+protected:
+	int magEn_;
+
 private:
 
 	static int ID;
 	int id_ = ID++;
 	std::string ime_;
-	int magEn_;
+
 };
 
 
